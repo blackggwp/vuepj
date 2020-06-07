@@ -36,13 +36,19 @@ export default {
   },
   methods: {
     fetchData () {
+      this.error = this.post = null
+      this.loading = true
       fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
         .then((res) => res.json())
         .then((data) => {
           // console.log(data)
+          this.loading = false
           this.post = data
           return data
-        }).catch((err) => console.log(err))
+        }).catch((err) => {
+          console.log(err)
+          this.error = err.toString()
+        })
     }
   }
 }
